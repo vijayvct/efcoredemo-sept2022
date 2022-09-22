@@ -1,0 +1,180 @@
+Entity Framework Core 
+---------------------
+
+Application 
+-----------
+E-Commerce Application
+HRMS
+Leave Management Application 
+
+User Interface --- Service(Web API) ---- Database(RDBMS)
+
+Data Access Logic 
+-----------------
+Java -- JDBC 
+.NET -- ADO.NET 
+
+ADO.Net 
+-------
+It is data access technology to create data driven application
+It was introduced from the First version of .Net Framework
+It work with data provider and data sets
+Problem with this technology is that it requires you write a lot code for doing simple as well as operation
+
+ADO.NET(Select all employees)
+-----------------------------
+SqlConnection conn = new SqlConnection("connection string");
+
+SqlCommand cmd = new SqlCommand("select * from Employees",conn);
+
+conn.Open();
+
+SqlDataReader reader= cmd.ExecuteReader();
+
+if(reader.HasRows)
+{	
+	while(reader.Read())
+	{
+		//
+	}
+}
+else
+{
+	
+}
+reader.Close();
+conn.Close();
+
+Entity Framework
+----------------
+Entity Framework is an ORM(Object Relational Mapper)
+It helps consider the database object as C# object or collection
+It enables developers to work with database using .NET Objects
+eg :- 
+	Employees Table ---> Employees Collection 
+	
+	MyContext context = new MyContext();
+	
+	var data = context.Employees.ToList();
+	
+	foreach(var emp in data)
+	{
+		//logic
+	}
+	
+It generates all the data access logic.
+It work only with .Net Framework.
+
+	.NET Framework 3.5  EF 1.0
+	.NET Framework 4.0 	EF 4.0
+	.NET Framework 4.5  EF 5.0 
+						EF 6.x
+						
+Entity Framework Core 
+---------------------
+Entity Framework Core is the lastest release of the Entity Framework
+It is lightweight, extensible and cross-platform in nature
+It had great performance as compared to EF 6.x
+It is supported on .NET Core as well as on .NET Framework 4.5+
+It provides a variety of data providers which can help us connect our application to different databases with minimal change in the code.
+
+EF Core Version 
+---------------
+	.NET Core 2.X --> EF Core 2.0,2.1,2.2
+	.NET Core 3.1(LTS) --> EF Core 3.1
+	.NET Core 5 --> EF Core 5 
+	.NET 6 --> EF Core 6
+	.NET 7(preview) --> EF Core 7 (preview)
+	
+	
+Approaches to Implement EF 5.x and 6.x
+-------------------------------------
+Database First 
+Code First 
+Model First 
+
+Approaches to Implement EF Core 
+-------------------------------
+Code First 
+Reverse Engineering (Database First)
+
+EF Core Power Tools (Visual Studio)
+
+Model (EDM)
+-----------
+Domain Classes 
+	-It is simple POCO(Plain old CLR Objects) class which acts as Entity Classes 
+	-These classes are mapped to database tables
+	
+Database Context
+	-It is like a bridge between the application and the data source
+	-It helps objects to query and save data
+
+Tools 
+-----
+Visual Studio Code
+.NET Core 3.1 and 6.0 SDK
+SQL Express Edition 
+SQL Server Management Studio
+
+Simple Example of Entity Framework Core 
+---------------------------------------
+1)Create a Console Application 
+	
+	dotnet new console -f netcoreapp3.1
+	
+2)Adding the EF Core package using nuget package manager
+
+	Microsoft.EntityFrameworkCore
+	Microsoft.EntityFrameworkCore.SqlServer (Data Provider)
+	Microsoft.EntityFrameworkCore.Design
+	Microsoft.EntityFrameworkCore.Tools 
+	
+dotnet add package Microsoft.EntityFrameworkCore --version 3.1.29
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.1.29
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.1.29
+dotnet add package Microsoft.EntityFrameworkCore.Tools --version 3.1.29
+
+3)Creating Entity Models
+4)Creating a Database Context
+5)To perform reading and writing of data to database using Create and Drop API's
+
+EF Core Create and Drop API's
+-----------------------------
+The EnsureCreated and EnsureDeleted methods provider as lightweight alternative to Migration for managing the database schema.
+These methods are useful in scenarios when the data is transient and can be dropped when the schema changes e.g. Prototyping in test or for local caches.
+
+Migrations 
+----------
+Migrations in EF Core provides a way to incrementally update the database schema to keep it in sync with the application's data model while preserving the data in database.
+
+Install the dotnet-ef tools 
+---------------------------
+dotnet tool install --global dotnet-ef 
+
+dotnet tool update --global dotnet-ef 
+
+Creating the First Migration 
+----------------------------
+dotnet ef migratons add InitialDBCreation
+
+To update the database with the Migration 
+-----------------------------------------
+dotnet ef database update 
+
+LINQ :- Language Integrated Query 
+
+It allows us to query data from multiple datasource(collections,array,xml, sqldata...) using languages likes C# or VB.Net.
+It will help you write sql like queries using the programming langauge.
+
+update <tablename>
+set col1=value1,col2=value2......
+where <condition>
+
+To generate logs for sql queries in VS or VS Code we need use the logging feature of .NET Core 
+
+dotnet add package Microsoft.Extensions.Logging.Console --version 3.1.29
+
+Migrations
+Performing DDL operation
+Logging in EF Core 

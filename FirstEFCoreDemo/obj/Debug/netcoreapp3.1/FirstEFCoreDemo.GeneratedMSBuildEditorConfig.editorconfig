@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = FirstEFCoreDemo
+build_property.ProjectDir = C:\Demos\EFCore-Sep2022\FirstEFCoreDemo\
