@@ -3,14 +3,16 @@ using FirstEFCoreDemo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FirstEFCoreDemo.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220923143357_BookAdded")]
+    partial class BookAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,21 +139,6 @@ namespace FirstEFCoreDemo.Migrations
                             Price = 899.99000000000001,
                             Title = "Harry Potter and The Chambers of Secret"
                         });
-                });
-
-            modelBuilder.Entity("FirstEFCoreDemo.Models.Customer", b =>
-                {
-                    b.Property<int>("CustID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CustID");
-
-                    b.ToTable("Customers","MySchema");
                 });
 
             modelBuilder.Entity("FirstEFCoreDemo.Models.Employee", b =>

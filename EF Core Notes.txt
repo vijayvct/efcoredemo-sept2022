@@ -176,5 +176,31 @@ To generate logs for sql queries in VS or VS Code we need use the logging featur
 dotnet add package Microsoft.Extensions.Logging.Console --version 3.1.29
 
 Migrations
-Performing DDL operation
+Performing DML operation
 Logging in EF Core 
+
+Using Data Annotation to apply constraint 
+Seeding data to the table using DbContext OnModelCreating()
+Work with simple relationship 
+RAW SQL Queries and Stored Procedure 
+Connected and Disconnected Architecture
+
+SQL Constraints
+---------------
+Primary Key 
+Foreign Key 
+Not Null 
+.....
+
+Data Annotations 
+----------------
+System.ComponentModel.DataAnnotation
+
+Required 
+StringLength 
+DataType......
+
+RAW SQL Queries and Stored Procedure 
+------------------------------------
+FromSqlRaw()
+FromSqlInterpolated()

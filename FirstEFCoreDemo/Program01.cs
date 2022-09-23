@@ -2,6 +2,7 @@ using System;
 using FirstEFCoreDemo.Models;
 using FirstEFCoreDemo.Data;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace FirstEFCoreDemo
 {
@@ -112,6 +113,80 @@ namespace FirstEFCoreDemo
 
             Console.WriteLine("Author Deleted....");
         }
+
+        //Reading Books 
+        static void ReadBooks()
+        {
+            foreach(var book in context.Books)
+            {
+                Console.WriteLine($"{book.Id},{book.Title},{book.Price},{book.AuthorId}");
+            }
+        }
+
+        static void AddAuthor1()
+        {
+            try
+            {
+                var author = new Author
+                {
+                    FirstName="Malcolm",
+                    LastName=null,
+                    Email=null,
+                    Location="India"
+                };
+
+                context.Authors.Add(author);
+                context.SaveChanges();
+
+                Console.WriteLine("Author Added");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Exception Caught");
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        //Inserting Related Data
+        static void AuthorBookAdd_1()
+        {
+            var author = new Author
+            {
+                FirstName="Malcolm",
+                LastName="D",
+                Email="malcolm@gmail.com",
+                Location="India"
+            };
+
+            var book1 = new Book {Title="Oracle DB Fundamentals",Price=199.99,AuthorId=6};
+            var book2= new Book{ Title="Azure SQL Adminstration",Price=299.99,AuthorId=6};
+
+            context.AddRange(author,book1,book2);
+            context.SaveChanges();
+
+            Console.WriteLine("Details Added Successfully......");
+        }
+
+        static void AuthorBookAdd_2()
+        {
+            var author= new Author
+            {
+                FirstName="Seema",
+                LastName="Sharma",
+                Email ="seemas@gmail.com",
+                Location="India",
+                Books = new List<Book>{
+                    new Book {Title="C#",Price=99.99},
+                    new Book {Title="VB.Net",Price=29.99}
+                }
+            };
+
+            context.Add(author);
+            context.SaveChanges();
+
+            Console.WriteLine("Record Added....");
+        }
+
         static void Main(string[] args)
         {
             //AddAuthor();
@@ -119,8 +194,11 @@ namespace FirstEFCoreDemo
             //ReadAuthors();
             //AuthorUpdate1();
             //AuthorUpdate2();
+            //DeleteAuthor();
 
-            DeleteAuthor();
+            //ReadBooks();
+            //AddAuthor1();
+            AuthorBookAdd_2();
         }
     }
 }

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <StartupObject>FirstEFCoreDemo.Program01</StartupObject>
+    <StartupObject>FirstEFCoreDemo.Program02</StartupObject>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
