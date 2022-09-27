@@ -32,7 +32,7 @@ namespace FirstEFCoreDemo.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                 .UseLoggerFactory(ConsoleLoggerFactory).EnableSensitiveDataLogging()
+                 //.UseLoggerFactory(ConsoleLoggerFactory).EnableSensitiveDataLogging()
                  .UseSqlServer(conn);
         }
 

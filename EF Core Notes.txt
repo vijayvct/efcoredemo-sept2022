@@ -182,7 +182,7 @@ Logging in EF Core
 Using Data Annotation to apply constraint 
 Seeding data to the table using DbContext OnModelCreating()
 Work with simple relationship 
-RAW SQL Queries and Stored Procedure 
+RAW SQL Queries and Stored Procedure, User Defined Function 
 Connected and Disconnected Architecture
 
 SQL Constraints
@@ -204,3 +204,72 @@ RAW SQL Queries and Stored Procedure
 ------------------------------------
 FromSqlRaw()
 FromSqlInterpolated()
+
+Connected and Disconnected Architecture in EF Core 
+--------------------------------------------------
+Connected Architecture 
+----------------------
+One context object is used for all the operations (insert,update,select and delete)on the entity.
+In this approach , the context object keeps track of all the changes that is happening to  the entity.
+
+E-Commerce Application 
+-----------------------
+Login into the application 
+Navigate to Profile Page 
+Enter the new mobile number and update 
+
+Disconnected Architecture
+-------------------------
+In this approach, different instance of context are used to perform different operations on the entity.
+
+	e.g:- first instance can be used to search the entity
+		  second instance can be used to modify the entity 
+		  
+	In the above example context object cannot track the changes done to the entity.
+	
+	We explicitly tell the context object which operations has to be perfomed. 
+	It is specified with the help of EntityState Enumeration and State property of the entity 
+	
+EntityState 
+-----------
+Added 
+Deleted 
+Modified 
+Detached 
+Unchanged 
+
+Relationship in EF Core 
+-----------------------
+Relationship defines how two entites are related to each other.
+In Database, this is done with the help of primary and foreign key.
+
+One to One (Employee ---> Contact Details, Vehicle-->Registration)
+One to Many (Department-->Employees)
+Many to Many (Employee-->Projects)
+
+Principal Entity :- This is the entity that contains the primary key properties. Sometime refered as the parent of the relationship.
+
+Principal Key :- The properties that uniquely identify the principle. This is primary key 
+
+Dependent Entity :- This is the entity that contains the foreign key properties. Sometime refered as child table 
+
+Foreign Key :- The properties in the dependent entity that are used to store the principal key values for the related entity.
+
+Navigation Key :- A property defined on the principal and/or dependent entity that references the related entity 
+
+	Collection Navigation Property :- A Navigation property that contains reference to many related properties 
+	
+	Reference Navigation Property:- A navigation property that holds reference to a sinfle related entity 
+	
+	Inverse Navigation Property :- It refers to the navigation property on the other end of the relationship 
+	
+Approaches to implement relationship in EF Core 
+-----------------------------------------------
+EF Core Convention (Navigation Property) 
+Data Annotations
+Fluent API 
+
+EF Core Convention & Data Annotations (One to One and One to Many)
+Fluent API (One to One , One to Many and Many to Many)
+
+One to One (Employee ---> EmployeeAddress)
