@@ -273,3 +273,53 @@ EF Core Convention & Data Annotations (One to One and One to Many)
 Fluent API (One to One , One to Many and Many to Many)
 
 One to One (Employee ---> EmployeeAddress)
+
+Fluent API
+----------
+EF Fluent API is used to configure domain classes to override conventions
+EF Fluent API is based on the Fluent API Design Pattern i.e. Fluent Interfaces where the results are formulated by method chaining
+In EF Core , ModelBuilder class acts as a Fluent API by using it we can configure many different thing as it provides more configuration options than other approaches
+
+	Model Configuration 
+	Entity Configuration 
+	Property Configuration
+	
+Inheritance in EF Core 
+----------------------
+EF Core can map .NET Types hierarchy to a database.
+This allows you to write your .NET entites in code as usual, using base and deived types and have EF Core create the appropriate database schema , issue queries etc 
+
+Student - FullTimeStudent 
+		  PartTimeStudent
+		  
+Table Per Hierarchy (TPH)(EF Core 1.0 to 3.1, also in 5.0 , EF 6)
+	-One table is created for the entire class hierarchy
+	-Includes a discriminator column to distinguish between the inheritance classes
+	
+Table Per Type (TPT) (EF Core 5 , EF 6)
+	-Create a seperate table for each domain class
+
+Table Per Concrete Class (TPC) (EF 6)
+	-One table for one concrete class but no table for the abstract class
+	-All the properties of the abstract class are included in the concrete class 
+	
+Reverse Engineering(Database First) in EF Core
+----------------------------------------------
+This approach , allows us to create a Entity Data Model from and existing database.
+
+dotnet ef dbcontext scaffold "connection string" data-provider --context-dir Data --output-dir Models
+
+dotnet ef dbcontext scaffold "data source=CTAADPG02MWBG;initial catalog=MusicStoreDB;integrated security=true" Microsoft.EntityFrameworkCore.SqlServer --context-dir Data --output-dir Models
+
+Loading Related Data
+--------------------
+
+Eager Loading :- Related data is loaded from the database as part of the initial query
+
+	Include()
+	ThenInclude()
+
+Explicit Loading :- Related data is explicitly loaded from tha database at later time. It is similar to lazy loading but the related data loads only when explicit call to Load or Query method is done to the related entites DbContext.Entry()
+
+Lazy Loading :- Related data is transparently loaded from the database when the navigation properties are accessed.Allows to retreive data whenever it is needed.
+By default Lazy Loading is not support in EF Core, We need to either add the proxy package or inject ILazyLoaded Interface

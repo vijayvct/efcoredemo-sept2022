@@ -38,6 +38,21 @@ namespace EFCoreRelationDemo.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("EFCoreRelationDemo.Models.Course", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CourseId");
+
+                    b.ToTable("Courses");
+                });
+
             modelBuilder.Entity("EFCoreRelationDemo.Models.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -121,6 +136,36 @@ namespace EFCoreRelationDemo.Migrations
                     b.ToTable("Publishers");
                 });
 
+            modelBuilder.Entity("EFCoreRelationDemo.Models.Student", b =>
+                {
+                    b.Property<int>("StudentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StudentId");
+
+                    b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("EFCoreRelationDemo.Models.StudentCourse", b =>
+                {
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("StudentCourses");
+                });
+
             modelBuilder.Entity("EFCoreRelationDemo.Models.Book", b =>
                 {
                     b.HasOne("EFCoreRelationDemo.Models.Publisher", "Publisher")
@@ -144,6 +189,21 @@ namespace EFCoreRelationDemo.Migrations
                     b.HasOne("EFCoreRelationDemo.Models.Employee", "Employee")
                         .WithOne("EmployeeAddress")
                         .HasForeignKey("EFCoreRelationDemo.Models.EmployeeAddress", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EFCoreRelationDemo.Models.StudentCourse", b =>
+                {
+                    b.HasOne("EFCoreRelationDemo.Models.Course", "Course")
+                        .WithMany("StudentCourses")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EFCoreRelationDemo.Models.Student", "Student")
+                        .WithMany("StudentCourses")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
